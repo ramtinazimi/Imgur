@@ -3,7 +3,8 @@ package com.azimi.ramtin.imgur;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 
 import mehdi.sakout.aboutpage.AboutPage;
@@ -15,6 +16,13 @@ public class DisplayAboutPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_about_page);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+
+
+
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -46,19 +54,12 @@ public class DisplayAboutPageActivity extends AppCompatActivity {
 
     }
 
-    /*
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // app icon in action bar clicked; go home
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
-    */
+
 }

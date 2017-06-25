@@ -18,8 +18,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import mehdi.sakout.aboutpage.AboutPage;
 import okhttp3.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     data = new JSONObject(response.body().string());
                     items = data.getJSONArray("data");
-                    System.out.println(items.getString(1));
+                    System.out.println("++++++++++++*****************"+items.getString(1));
                 }catch(Exception e){
                     System.out.println("Error");
                 }
@@ -114,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = (RecyclerView)findViewById(R.id.rv_of_photos);
 
 
-        int numberOfColumns = 3;
+        int numberOfColumns = 2;
         rv.setLayoutManager(new GridLayoutManager(this,numberOfColumns));
         adapter = new MyRecyclerViewAdapter(this, photos);
         //adapter.setClickListener(this);
@@ -152,9 +150,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, DisplayAboutPageActivity.class);
             startActivity(intent);
+        }
+        */
+
+        if(id==R.id.action_about){
+            Intent intent = new Intent(this, DisplayAboutPageActivity.class);
+            startActivity(intent);
+
         }
         if(id == R.id.action_filter){
             return true;
