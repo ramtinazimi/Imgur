@@ -26,4 +26,13 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <style name="MyTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+
+    </style>
+
 </resources>

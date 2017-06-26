@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.azimi.ramtin.imgur.AboutPageActivity"
+    tools:showIn="@layout/activity_about_page">
+
+
+    <TextView
+        style="@style/MyTextViewStyle"
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App Information"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        style="@style/MyTextViewStyle"
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version: 1.0"
+        android:layout_below="@+id/info"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        style="@style/MyTextViewStyle"
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Development time: 6 days."
+        android:layout_below="@+id/version"/>
+
+    <TextView
+        style="@style/MyTextViewStyle"
+        android:id="@+id/authorInfo"
+        android:text="Developer"
+        android:layout_below="@+id/time"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        style="@style/MyTextViewStyle"
+        android:id="@+id/name"
+        android:text="Author name: rt.azimi@gmail.com"
+        android:layout_below="@+id/authorInfo"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

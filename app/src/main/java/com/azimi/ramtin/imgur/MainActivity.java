@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         */
 
         if(id==R.id.action_about){
-            Intent intent = new Intent(this, DisplayAboutPageActivity.class);
+            Intent intent = new Intent(this, AboutPageActivity.class);
             startActivity(intent);
 
         }
