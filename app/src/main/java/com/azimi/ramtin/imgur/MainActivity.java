@@ -14,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     final List<Photo> photos = new ArrayList<>();
     MyRecyclerViewAdapter adapter;
     private Button button1;
+    private Spinner spinner_nav;
+
 
 
     @Override
@@ -44,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Imgur");
         toolbar.setTitleTextColor(Color.WHITE);
 
+
+        spinner_nav = (Spinner) findViewById(R.id.spinner_nav);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        }
+        addItemsToSpinner();
 
 
 
@@ -112,6 +125,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    // add items into spinner dynamically
+    public void addItemsToSpinner() {
+
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("hot");
+        list.add("top");
+        list.add("user");
+
+
+        // Custom ArrayAdapter with spinner item layout to set popup background
+
+        CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
+                getApplicationContext(), list);
+
+
+
+        // Default ArrayAdapter with default spinner item layout, getting some
+        // view rendering problem in lollypop device, need to test in other
+        // devices
+
+  /*
+   * ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
+   * android.R.layout.simple_spinner_item, list);
+   * spinAdapter.setDropDownViewResource
+   * (android.R.layout.simple_spinner_dropdown_item);
+   */
+
+        spinner_nav.setAdapter(spinAdapter);
+
+        spinner_nav.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                String item = adapter.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(getApplicationContext(), "Selected  : " + item,
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
     }
 
