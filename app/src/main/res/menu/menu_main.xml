@@ -23,7 +23,8 @@
         android:orderInCategory="0"
         android:title="Search"
         android:icon="@drawable/ic_action_about"
-        app:showAsAction="always"
-        ></item>
+        app:showAsAction="ifRoom"
+        android:backgroundTint="#FFFFFF"></item>
+
 
 </menu>

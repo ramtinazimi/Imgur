@@ -1,18 +1,22 @@
 package com.azimi.ramtin.imgur;
 
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "Ramtin";
     final List<Photo> photos = new ArrayList<>();
     MyRecyclerViewAdapter adapter;
+    private Button button1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Imgur");
         toolbar.setTitleTextColor(Color.WHITE);
+
 
 
 
@@ -125,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void fetchData() {
@@ -135,10 +140,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -149,27 +157,26 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /*
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, DisplayAboutPageActivity.class);
-            startActivity(intent);
-        }
-        */
 
-        if(id==R.id.action_about){
-            Intent intent = new Intent(this, AboutPageActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.action_about:
+                Intent intent = new Intent(this, AboutPageActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_filter:
+                Toast.makeText(this, "Filter clicked!",
+                        Toast.LENGTH_LONG).show();
 
-        }
-        if(id == R.id.action_filter){
-            return true;
-        }
-        if (id == R.id.action_view){
-            return true;
+                return true;
+            case R.id.action_view:
+
+                Toast.makeText(this, "View clikced!",
+                        Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
 
