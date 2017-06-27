@@ -26,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import okhttp3.*;
 
+/*
+Code regarding connection to Imgur Website from Ashraff Hathibelagai.
+Source: http://progur.com/2016/11/create-imgur-client-android.html
+ */
 public class MainActivity extends AppCompatActivity {
 
     private OkHttpClient httpClient;
@@ -59,71 +63,9 @@ public class MainActivity extends AppCompatActivity {
         addItemsToSpinner();
 
 
-
-        fetchData();
-
-
-        //Building the request.
-        Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
-                .header("Authorization","Client-ID b4cf051f07b40a8")
-                .header("RamtinAzimi","Imgur App")
-                .build();
+        retrieveImagesfromPage();
 
 
-        //System.out.println("REQUEST!!!!!!!!!!!"+request);
-
-        //Try to connect
-        httpClient.newCall(request).enqueue(new Callback() {
-
-            //When connection fails.
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "An error has occurred " + e);
-
-            }
-
-
-            //If connections was successful.
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                JSONObject data;
-                JSONArray items = null;
-                try{
-                    data = new JSONObject(response.body().string());
-                    items = data.getJSONArray("data");
-                    System.out.println("++++++++++++*****************"+items.getString(1));
-                }catch(Exception e){
-                    System.out.println("Error");
-                }
-
-
-                for(int i=0; i<items.length();i++) {
-                    Photo photo = null;
-                    try{
-                        JSONObject item = items.getJSONObject(i);
-                        String title = item.getString("title");
-                        if(item.getBoolean("is_album")) {
-                            photo = new Photo(item.getString("cover"),title) ;
-                        } else {
-                            photo = new Photo(item.getString("id"),title) ;
-                        }
-                    }catch (Exception e){
-                        System.out.println("Error");
-                    }
-
-
-                    photos.add(photo); // Add photo to list
-                }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        render(photos);
-                    }
-                });
-            }
-        });
 
 
     }
@@ -198,6 +140,74 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void retrieveImagesfromPage(){
+        fetchData();
+
+
+
+
+        //Building the request.
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/gallery/"+spinner_nav.getSelectedItem()+"/rising/0.json")
+                .header("Authorization","Client-ID b4cf051f07b40a8")
+                .header("RamtinAzimi","Imgur App")
+                .build();
+
+
+
+
+        //Try to connect
+        httpClient.newCall(request).enqueue(new Callback() {
+
+            //When connection fails.
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "An error has occurred " + e);
+
+            }
+
+
+            //If connections was successful.
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                JSONObject data;
+                JSONArray items = null;
+                try{
+                    data = new JSONObject(response.body().string());
+                    items = data.getJSONArray("data");
+                    System.out.println("++++++++++++*****************"+items.getString(1));
+                }catch(Exception e){
+                    System.out.println("Error");
+                }
+
+
+                for(int i=0; i<items.length();i++) {
+                    Photo photo = null;
+                    try{
+                        JSONObject item = items.getJSONObject(i);
+                        String title = item.getString("title");
+                        if(item.getBoolean("is_album")) {
+                            photo = new Photo(item.getString("cover"),title) ;
+                        } else {
+                            photo = new Photo(item.getString("id"),title) ;
+                        }
+                    }catch (Exception e){
+                        System.out.println("Error");
+                    }
+
+
+                    photos.add(photo); // Add photo to list
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        render(photos);
+                    }
+                });
+            }
+        });
+    }
     private void fetchData() {
 
         httpClient = new OkHttpClient.Builder().build();

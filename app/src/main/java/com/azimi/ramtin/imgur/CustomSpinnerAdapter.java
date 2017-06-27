@@ -9,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+
+/*
+Code from Arpit Patel in StackOverflow.
+Source: https://stackoverflow.com/questions/37696653/how-to-add-spinner-as-an-item-in-navigation-drawer
+ */
+
+
 // Custom Adapter for Spinner
 public class CustomSpinnerAdapter extends ArrayAdapter<String> {
 
