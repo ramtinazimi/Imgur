@@ -16,16 +16,22 @@ import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.util.Log;
 
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -84,12 +90,39 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     }
 
 
+    //This is the listener for clicking an image.
     @Override
     public void onItemClick(View view, int position) {
         //Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
 
         Toast.makeText(MainActivity.this, "You clicked number " + adapter.getItem(position),
                 Toast.LENGTH_LONG).show();
+
+
+        LayoutInflater layoutInflater
+                = (LayoutInflater)getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup_window, null);
+        final PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
+        //((TextView)popupWindow.getContentView().findViewById(R.id.bigImages)).setText(photos.get(position).ge);
+
+        Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
+        btnDismiss.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                popupWindow.dismiss();
+            }});
+
+
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
 
     public void clickAbout(View view){
@@ -168,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }
 
     }
+
+
 
     public void clickDate(View view){
         //Creating the instance of PopupMenu

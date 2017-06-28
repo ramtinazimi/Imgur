@@ -35,6 +35,12 @@
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
     </style>
 
+    <style name="PopUpWindowStyle" parent="android:Widget.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Small</item>
+    </style>
+
 
     <style name="spinner_style">
         <item name="android:background">@drawable/spinner_background</item>

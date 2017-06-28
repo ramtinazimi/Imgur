@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_light">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="1dp"
+        android:background="@android:color/darker_gray">
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:text="Picture details" />
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/bigImages"
+                android:text="Big image:"/>
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/title"
+                android:text="Title: "/>
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/description"
+                android:text="Description: "/>
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/upvotes"
+                android:text="Upvotes: "/>
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/downvotes"
+                android:text="Downvotes: "/>
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/score"
+                android:text="Score: "/>
+            <Button
+                android:id="@+id/dismiss"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Dismiss"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
