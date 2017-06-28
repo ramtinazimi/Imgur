@@ -9,11 +9,35 @@
 
 
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_about"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:onClick="clickAbout"/>
+
+
+
     <Spinner
         android:id="@+id/spinner_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:prompt="@string/spinner_header"/>
+        android:prompt="@string/spinner_header"
+        android:gravity="left"/>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_filter"
+        android:layout_gravity="left" />
+
+    <ImageButton
+        android:id="@+id/buttonLayoutChanger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_view"
+        android:layout_gravity="left"
+        android:onClick="clickLayoutChanger"/>
 
 </android.support.v7.widget.Toolbar>

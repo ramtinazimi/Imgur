@@ -1,21 +1,23 @@
 package com.azimi.ramtin.imgur;
 
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.PopupMenu;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuInflater;
+
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerGallerySelection;
     private RecyclerView.LayoutManager layout;
     private Spinner spinnerGalleryLayout;
-
+    private int layoutCounter = 1;
 
 
     @Override
@@ -69,6 +71,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void clickAbout(View view){
+
+        Intent intent = new Intent(this, AboutPageActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickLayoutChanger(View view){
+
+        ImageButton buttonLayoutChanger;
+
+        Log.i(TAG, "Number: "+layoutCounter);
+        if(layoutCounter==0){
+            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
+            buttonLayoutChanger.setImageResource(R.drawable.ic_view);
+            layoutCounter++;
+        }
+        if(layoutCounter==1){
+            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
+            buttonLayoutChanger.setImageResource(R.drawable.ic_about);
+            layoutCounter++;
+        }
+        if(layoutCounter==2){
+            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
+            buttonLayoutChanger.setImageResource(R.drawable.ic_filter);
+            layoutCounter = 0;
+        }
+
+    }
+
+    public void clickSort(View view){
+
+    }
     // add items into spinner dynamically
     public void addItemsToSpinner() {
 
@@ -129,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
+
 
             }
         });
@@ -247,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
 
+        /*
         switch (item.getItemId()) {
             case R.id.action_about:
                 Intent intent = new Intent(this, AboutPageActivity.class);
@@ -264,7 +299,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+
+
         }
+
+        */
+
+        return super.onOptionsItemSelected(item);
 
     }
 
