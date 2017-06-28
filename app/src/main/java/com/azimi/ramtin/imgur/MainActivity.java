@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -40,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
     MyRecyclerViewAdapter adapter;
     private Button button1;
     private Spinner spinnerGallerySelection;
+    int numberOfColumns = 2;
     private RecyclerView.LayoutManager layout;
     private Spinner spinnerGalleryLayout;
     private int layoutCounter = 1;
-
+    RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +87,19 @@ public class MainActivity extends AppCompatActivity {
 
         if(layoutCounter == 0){
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
+            layout = new GridLayoutManager(this, numberOfColumns);
             layoutCounter++;
         }else if(layoutCounter == 1){
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
+            layout = new StaggeredGridLayoutManager(2,1);
             layoutCounter++;
         }else if(layoutCounter == 2){
             buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
+            layout = new LinearLayoutManager(this);
             layoutCounter = 0;
         }
 
+        rv.setLayoutManager(layout);
     }
 
     public void clickSort(View view){
@@ -168,9 +175,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void render(final List<Photo> photos) {
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv_of_photos);
 
-        int numberOfColumns = 2;
+        rv = (RecyclerView)findViewById(R.id.rv_of_photos);
         layout = new GridLayoutManager(this, numberOfColumns);
         rv.setLayoutManager(layout);
         adapter = new MyRecyclerViewAdapter(this, photos);

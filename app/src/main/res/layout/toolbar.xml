@@ -26,11 +26,6 @@
         android:prompt="@string/spinner_header"
         android:gravity="left"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_filter"
-        android:layout_gravity="left" />
 
     <ImageButton
         android:id="@+id/buttonLayoutChanger"
@@ -39,5 +34,12 @@
         android:src="@drawable/ic_grid_view"
         android:layout_gravity="left"
         android:onClick="clickLayoutChanger"/>
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sort"
+        android:layout_gravity="left" />
 
 </android.support.v7.widget.Toolbar>
