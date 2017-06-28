@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -40,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "Ramtin";
     final List<Photo> photos = new ArrayList<>();
     MyRecyclerViewAdapter adapter;
-    private Button button1;
+
     private Spinner spinnerGallerySelection;
     int numberOfColumns = 2;
     private RecyclerView.LayoutManager layout;
     private Spinner spinnerGalleryLayout;
     private int layoutCounter = 1;
     RecyclerView rv;
+    PopupMenu popup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickSort(View view){
+        //Creating the instance of PopupMenu
+        ImageButton button1 = (ImageButton) findViewById(R.id.buttonSort);
+        popup = new PopupMenu(MainActivity.this, button1);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater()
+                .inflate(R.menu.popup_menu, popup.getMenu());
 
+        //registering popup with OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "You Clicked : " + item.getTitle(),
+                        Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        });
+
+        popup.show(); //showing popup menu
     }
     // add items into spinner dynamically
     public void addItemsToSpinner() {
@@ -129,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Selected  : " + item,
                         Toast.LENGTH_LONG).show();
 
+                if(id == 2){
+                    popup.getMenu().add("rising");
+                    popup.show();
+                }else{
+
+                }
                 retrieveImagesfromPage(spinnerGallerySelection.getSelectedItem().toString());
             }
 
