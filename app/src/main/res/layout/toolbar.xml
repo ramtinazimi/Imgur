@@ -16,7 +16,8 @@
         android:layout_gravity="right"
         android:clickable="true"
         android:onClick="clickAbout"
-        android:background="@color/myColor3"/>
+        android:background="@color/myColor3"
+        android:layout_marginRight="15dp"/>
 
 
 
@@ -35,7 +36,8 @@
         android:src="@drawable/ic_grid_view"
         android:layout_gravity="left"
         android:onClick="clickLayoutChanger"
-        android:background="@color/myColor3"/>
+        android:background="@color/myColor3"
+        android:layout_marginLeft="15dp"/>
 
 
     <ImageButton
@@ -45,7 +47,17 @@
         android:src="@drawable/ic_sort"
         android:layout_gravity="left"
         android:background="@color/myColor3"
-        android:onClick="clickSort"/>
+        android:onClick="clickSort"
+        android:layout_marginLeft="15dp"/>
 
+    <ImageButton
+        android:id="@+id/buttonDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_date_range"
+        android:layout_gravity="left"
+        android:background="@color/myColor3"
+        android:onClick="clickDate"
+        android:layout_marginLeft="15dp"/>
 
 </android.support.v7.widget.Toolbar>

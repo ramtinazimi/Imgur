@@ -19,8 +19,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerGalleryLayout;
     private int layoutCounter = 1;
     RecyclerView rv;
-    PopupMenu popup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,36 +86,45 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickLayoutChanger(View view){
 
-        ImageButton buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
 
+        ImageButton buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
+        ImageView photo =  (ImageView) findViewById(R.id.photo);
+
+        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        int height = 180;
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
 
         if(layoutCounter == 0){
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
+            photo.setLayoutParams(parms);
             layout = new GridLayoutManager(this, numberOfColumns);
             layoutCounter++;
         }else if(layoutCounter == 1){
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
+            photo.setLayoutParams(new LinearLayout.LayoutParams(width,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT));
             layout = new StaggeredGridLayoutManager(2,1);
             layoutCounter++;
         }else if(layoutCounter == 2){
             buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
+            photo.setLayoutParams(parms);
             layout = new LinearLayoutManager(this);
             layoutCounter = 0;
         }
-
+        photo.requestLayout();
         rv.setLayoutManager(layout);
     }
 
     public void clickSort(View view){
         //Creating the instance of PopupMenu
-        ImageButton button1 = (ImageButton) findViewById(R.id.buttonSort);
-        popup = new PopupMenu(MainActivity.this, button1);
+        ImageButton buttonSort = (ImageButton) findViewById(R.id.buttonSort);
+        PopupMenu popupSort = new PopupMenu(MainActivity.this, buttonSort);
         //Inflating the Popup using xml file
-        popup.getMenuInflater()
-                .inflate(R.menu.popup_menu, popup.getMenu());
+        popupSort.getMenuInflater()
+                .inflate(R.menu.popup_menu_sort, popupSort.getMenu());
 
         //registering popup with OnMenuItemClickListener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        popupSort.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 Toast.makeText(
                         MainActivity.this,
@@ -124,8 +135,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        popup.show(); //showing popup menu
+        popupSort.show(); //showing popup menu
     }
+
+    public void clickDate(View view){
+        //Creating the instance of PopupMenu
+        ImageButton buttonDate = (ImageButton) findViewById(R.id.buttonDate);
+        PopupMenu popupDate = new PopupMenu(MainActivity.this, buttonDate);
+        //Inflating the Popup using xml file
+        popupDate.getMenuInflater()
+                .inflate(R.menu.popup_menu_date_range, popupDate.getMenu());
+
+        //registering popup with OnMenuItemClickListener
+        popupDate.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "You Clicked : " + item.getTitle(),
+                        Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        });
+
+        popupDate.show(); //showing popup menu
+    }
+
     // add items into spinner dynamically
     public void addItemsToSpinner() {
 
@@ -150,12 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Selected  : " + item,
                         Toast.LENGTH_LONG).show();
 
-                if(id == 2){
-                    popup.getMenu().add("rising");
-                    popup.show();
-                }else{
 
-                }
+
                 retrieveImagesfromPage(spinnerGallerySelection.getSelectedItem().toString());
             }
 
