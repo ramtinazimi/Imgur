@@ -35,7 +35,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public PhotoVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        System.out.println("Starting reclycerview");
+
         View view = mInflater.inflate(R.layout.item, parent, false);
         PhotoVH vh = new PhotoVH(view);
         vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
@@ -66,13 +66,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return photos.size();
     }
 
-    public class PhotoVH extends RecyclerView.ViewHolder {
+    public class PhotoVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView photo;
         TextView title;
 
         public PhotoVH(View itemView) {
 
             super(itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
