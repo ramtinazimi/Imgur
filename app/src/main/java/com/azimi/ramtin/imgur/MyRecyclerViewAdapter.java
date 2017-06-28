@@ -17,13 +17,15 @@ import java.util.List;
 
 /**
  * Created by Ramtin on 6/23/2017.
- */
+ *
+ **/
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.PhotoVH> {
 
     private List<Photo> photos;
     private LayoutInflater mInflater;
     private Context context;
+
 
     public MyRecyclerViewAdapter(Context context, List<Photo> photos){
         this.mInflater = LayoutInflater.from(context);
@@ -77,6 +79,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             super(itemView);
         }
     }
+
+    public Photo getItem(int id) {
+        return photos.get(id);
+    }
+
+
 };
 
 

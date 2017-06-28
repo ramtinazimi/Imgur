@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="App Information"
+        android:textStyle="bold"
         android:layout_marginTop="50dp"/>
 
     <TextView
@@ -38,6 +39,7 @@
         style="@style/MyTextViewStyle"
         android:id="@+id/authorInfo"
         android:text="Developer"
+        android:textStyle="bold"
         android:layout_below="@+id/time"
         android:layout_marginTop="50dp"/>
 

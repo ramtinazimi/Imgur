@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     final List<Photo> photos = new ArrayList<>();
     MyRecyclerViewAdapter adapter;
     private Button button1;
-    private Spinner spinner_nav;
+    private Spinner spinnerGallerySelection;
+    private RecyclerView.LayoutManager layout;
+    private Spinner spinnerGalleryLayout;
 
 
 
@@ -53,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
 
 
-        spinner_nav = (Spinner) findViewById(R.id.spinner_nav);
+        spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
+        spinnerGallerySelection.setPrompt("Gallery");
+        //spinnerGalleryLayout = (Spinner) findViewById(R.id.spinner_nav);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -63,43 +67,54 @@ public class MainActivity extends AppCompatActivity {
         addItemsToSpinner();
 
 
-        retrieveImagesfromPage();
-
-
-
-
     }
 
     // add items into spinner dynamically
     public void addItemsToSpinner() {
 
+
         ArrayList<String> list = new ArrayList<String>();
         list.add("hot");
         list.add("top");
         list.add("user");
-
-
-        // Custom ArrayAdapter with spinner item layout to set popup background
-
         CustomSpinnerAdapter spinAdapter = new CustomSpinnerAdapter(
                 getApplicationContext(), list);
 
+        spinnerGallerySelection.setAdapter(spinAdapter);
+        spinnerGallerySelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapter, View v,
+                                       int position, long id) {
+                // On selecting a spinner item
+                String item = adapter.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(getApplicationContext(), "Selected  : " + item,
+                        Toast.LENGTH_LONG).show();
+
+                retrieveImagesfromPage(spinnerGallerySelection.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
 
-        // Default ArrayAdapter with default spinner item layout, getting some
-        // view rendering problem in lollypop device, need to test in other
-        // devices
+        /*
+        ArrayList<String> listLayoutSelection = new ArrayList<String>();
+        listLayoutSelection.add("list");
+        listLayoutSelection.add("grid");
+        listLayoutSelection.add("staggerd grid");
 
-  /*
-   * ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this,
-   * android.R.layout.simple_spinner_item, list);
-   * spinAdapter.setDropDownViewResource
-   * (android.R.layout.simple_spinner_dropdown_item);
-   */
+        CustomSpinnerAdapter spinLayoutAdapter = new CustomSpinnerAdapter(
+                getApplicationContext(), listLayoutSelection);
 
-        spinner_nav.setAdapter(spinAdapter);
-
-        spinner_nav.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerGalleryLayout.setAdapter(spinLayoutAdapter);
+        spinnerGalleryLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
@@ -119,14 +134,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        */
+
     }
 
     private void render(final List<Photo> photos) {
         RecyclerView rv = (RecyclerView)findViewById(R.id.rv_of_photos);
 
-
         int numberOfColumns = 2;
-        rv.setLayoutManager(new GridLayoutManager(this,numberOfColumns));
+        layout = new GridLayoutManager(this, numberOfColumns);
+        rv.setLayoutManager(layout);
         adapter = new MyRecyclerViewAdapter(this, photos);
         //adapter.setClickListener(this);
         rv.setAdapter(adapter);
@@ -137,10 +154,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
-    private void retrieveImagesfromPage(){
+    private void retrieveImagesfromPage(String gallerySelection){
         fetchData();
 
 
@@ -148,12 +164,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Building the request.
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/"+spinner_nav.getSelectedItem()+"/rising/0.json")
+                .url("https://api.imgur.com/3/gallery/"+gallerySelection)
                 .header("Authorization","Client-ID b4cf051f07b40a8")
                 .header("RamtinAzimi","Imgur App")
                 .build();
-
-
 
 
         //Try to connect
@@ -208,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void fetchData() {
 
         httpClient = new OkHttpClient.Builder().build();

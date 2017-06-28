@@ -2,4 +2,5 @@
     <string name="app_name">Imgur</string>
     <string name="action_settings">About</string>
     <string name="title_activity_about_page">AboutPageActivity</string>
+    <string name="spinner_header">Gallery</string>
 </resources>
