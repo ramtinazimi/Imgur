@@ -19,5 +19,9 @@
             android:id="@+id/year"
             android:title="year"/>
 
+        <item
+            android:id="@+id/all"
+            android:title="all"/>
+
 
 </menu>

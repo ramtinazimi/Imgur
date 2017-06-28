@@ -19,12 +19,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -136,6 +138,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         popupSort.show(); //showing popup menu
+    }
+
+
+    public void clickViral(View view){
+
+        ToggleButton viralCheckBox = (ToggleButton) findViewById(R.id.viralToggleButton);
+
+        if(viralCheckBox.isChecked()){
+            Toast.makeText(this, "Include viral images.",
+                    Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(
+                    MainActivity.this,
+                    "Exclude viral images.",
+                    Toast.LENGTH_LONG);
+        }
+
     }
 
     public void clickDate(View view){
