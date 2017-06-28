@@ -25,7 +25,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private List<Photo> photos;
     private LayoutInflater mInflater;
     private Context context;
-
+    private ItemClickListener mClickListener;
 
     public MyRecyclerViewAdapter(Context context, List<Photo> photos){
         this.mInflater = LayoutInflater.from(context);
@@ -45,11 +45,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(PhotoVH holder, int position) {
-/*
-        Picasso.with(context)
-                .load("https://i.imgur.com/" + photos.get(position).getId() + ".jpg")
-                .into(holder.photo);
- */
+
 
         /*Glide for loading the photo from the imgur gallery.
           Glide will chache the image to the memory by default and on top of that looks
@@ -84,6 +80,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return photos.get(id);
     }
 
+    // allows clicks events to be caught
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
 };
 

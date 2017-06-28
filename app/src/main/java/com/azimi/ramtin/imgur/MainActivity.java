@@ -13,6 +13,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 
 import android.view.View;
@@ -39,7 +40,7 @@ import okhttp3.*;
 Code regarding connection to Imgur Website from Ashraff Hathibelagai.
 Source: http://progur.com/2016/11/create-imgur-client-android.html
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
     private OkHttpClient httpClient;
     private static String TAG = "Ramtin";
@@ -78,6 +79,17 @@ public class MainActivity extends AppCompatActivity {
         addItemsToSpinner();
 
 
+
+
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        //Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
+
+        Toast.makeText(MainActivity.this, "You clicked number " + adapter.getItem(position),
+                Toast.LENGTH_LONG).show();
     }
 
     public void clickAbout(View view){
@@ -216,39 +228,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        /*
-        ArrayList<String> listLayoutSelection = new ArrayList<String>();
-        listLayoutSelection.add("list");
-        listLayoutSelection.add("grid");
-        listLayoutSelection.add("staggerd grid");
-
-        CustomSpinnerAdapter spinLayoutAdapter = new CustomSpinnerAdapter(
-                getApplicationContext(), listLayoutSelection);
-
-        spinnerGalleryLayout.setAdapter(spinLayoutAdapter);
-        spinnerGalleryLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapter, View v,
-                                       int position, long id) {
-                // On selecting a spinner item
-                String item = adapter.getItemAtPosition(position).toString();
-
-                // Showing selected spinner item
-                Toast.makeText(getApplicationContext(), "Selected  : " + item,
-                        Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-
-
-            }
-        });
-
-        */
-
     }
 
     private void render(final List<Photo> photos) {
@@ -257,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         layout = new GridLayoutManager(this, numberOfColumns);
         rv.setLayoutManager(layout);
         adapter = new MyRecyclerViewAdapter(this, photos);
-        //adapter.setClickListener(this);
+        adapter.setClickListener(this);
         rv.setAdapter(adapter);
         rv.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -350,6 +329,8 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

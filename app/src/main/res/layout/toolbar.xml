@@ -33,7 +33,6 @@
 
     <Spinner
         android:id="@+id/spinner_nav"
-        android:background="@drawable/spinner_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:prompt="@string/spinner_header"
