@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
         spinnerGallerySelection.setPrompt("Gallery");
-        //spinnerGalleryLayout = (Spinner) findViewById(R.id.spinner_nav);
+
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -79,22 +79,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickLayoutChanger(View view){
 
-        ImageButton buttonLayoutChanger;
+        ImageButton buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
 
-        Log.i(TAG, "Number: "+layoutCounter);
-        if(layoutCounter==0){
-            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
-            buttonLayoutChanger.setImageResource(R.drawable.ic_view);
+
+        if(layoutCounter == 0){
+            buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
             layoutCounter++;
-        }
-        if(layoutCounter==1){
-            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
-            buttonLayoutChanger.setImageResource(R.drawable.ic_about);
+        }else if(layoutCounter == 1){
+            buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
             layoutCounter++;
-        }
-        if(layoutCounter==2){
-            buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
-            buttonLayoutChanger.setImageResource(R.drawable.ic_filter);
+        }else if(layoutCounter == 2){
+            buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
             layoutCounter = 0;
         }
 
