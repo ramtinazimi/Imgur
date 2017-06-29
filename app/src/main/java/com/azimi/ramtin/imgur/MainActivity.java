@@ -93,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     @Override
     public void onItemClick(View view, int position) {
 
+        Intent intent = new Intent(this, ImageDetailsActivity.class);
+        startActivity(intent);
 
+        /*
         LayoutInflater layoutInflater
                 = (LayoutInflater)getBaseContext()
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
 
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        */
     }
 
     public void clickAbout(View view){
@@ -185,10 +189,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         //Creating the instance of PopupMenu
         ImageButton buttonSort = (ImageButton) findViewById(R.id.buttonSort);
 
-        Intent intent = new Intent(this, AboutPageActivity.class);
-        startActivity(intent);
 
-        /*
         PopupMenu popupSort = new PopupMenu(MainActivity.this, buttonSort);
         //Inflating the Popup using xml file
         popupSort.getMenuInflater()
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
 
         popupSort.show(); //showing popup menu
-        */
+
     }
 
 
