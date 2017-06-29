@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
-        //((TextView)popupWindow.getContentView().findViewById(R.id.bigImages)).setText(photos.get(position).ge);
+        TextView bigImages = (TextView)popupWindow.getContentView().findViewById(R.id.bigImages);
+        bigImages.setText(photos.get(position).getTitle());
 
         Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
         btnDismiss.setOnClickListener(new Button.OnClickListener(){
