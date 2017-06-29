@@ -35,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -84,19 +86,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }
         addItemsToSpinner();
 
-
-
-
     }
 
 
     //This is the listener for clicking an image.
     @Override
     public void onItemClick(View view, int position) {
-        //Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
-
-        Toast.makeText(MainActivity.this, "You clicked number " + adapter.getItem(position),
-                Toast.LENGTH_LONG).show();
 
 
         LayoutInflater layoutInflater
@@ -109,8 +104,32 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
-        TextView bigImages = (TextView)popupWindow.getContentView().findViewById(R.id.bigImages);
-        bigImages.setText(photos.get(position).getTitle());
+        //bigImages
+        //ImageView bigImages = (ImageView)popupWindow.getContentView().findViewById(R.id.bigImages);
+        //Glide.with(this)
+            //    .load("https://i.imgur.com/" + photos.get(position).getId() + ".jpg")
+        //.into(bigImages);
+
+        //Title
+        TextView title = (TextView)popupWindow.getContentView().findViewById(R.id.title);
+        title.setText(photos.get(position).getTitle());
+
+        //description
+        TextView description = (TextView)popupWindow.getContentView().findViewById(R.id.description);
+        description.setText(photos.get(position).getDescription());
+
+        //upvotes
+        TextView upvotes = (TextView)popupWindow.getContentView().findViewById(R.id.upvotes);
+        upvotes.setText("Upvotes: "+photos.get(position).getUpvotes());
+
+
+        //downvotes
+        TextView downvotes = (TextView)popupWindow.getContentView().findViewById(R.id.downvotes);
+        downvotes.setText("Downvotes: "+photos.get(position).getDownvotes());
+
+        //score
+        TextView score = (TextView)popupWindow.getContentView().findViewById(R.id.score);
+        score.setText("Score: "+photos.get(position).getScore());
 
         Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
         btnDismiss.setOnClickListener(new Button.OnClickListener(){
@@ -119,9 +138,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 popupWindow.dismiss();
-            }});
-
-
+            }
+        });
 
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
@@ -166,6 +184,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void clickSort(View view){
         //Creating the instance of PopupMenu
         ImageButton buttonSort = (ImageButton) findViewById(R.id.buttonSort);
+
+        Intent intent = new Intent(this, AboutPageActivity.class);
+        startActivity(intent);
+
+        /*
         PopupMenu popupSort = new PopupMenu(MainActivity.this, buttonSort);
         //Inflating the Popup using xml file
         popupSort.getMenuInflater()
@@ -184,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
 
         popupSort.show(); //showing popup menu
+        */
     }
 
 
@@ -316,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 try{
                     data = new JSONObject(response.body().string());
                     items = data.getJSONArray("data");
-                    System.out.println("++++++++++++*****************"+items.getString(1));
+                    Log.i(TAG, items.toString());
                 }catch(Exception e){
                     System.out.println("Error");
                 }
@@ -326,17 +350,24 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                     Photo photo = null;
                     try{
                         JSONObject item = items.getJSONObject(i);
+
                         String title = item.getString("title");
+                        String description = item.getString("description");
+                        String upvotes = item.getString("ups");
+                        String downvotes = item.getString("downs");
+                        String score = item.getString("score");
+
+
                         if(item.getBoolean("is_album")) {
-                            photo = new Photo(item.getString("cover"),title) ;
+                            photo = new Photo(item.getString("cover"),title, description, upvotes, downvotes, score) ;
                         } else {
-                            photo = new Photo(item.getString("id"),title) ;
+                            photo = new Photo(item.getString("id"),title, description, upvotes, downvotes, score);
                         }
                     }catch (Exception e){
                         System.out.println("Error");
                     }
 
-
+                    Log.i(TAG, photo.toString());
                     photos.add(photo); // Add photo to list
                 }
 
@@ -375,30 +406,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
-        /*
-        switch (item.getItemId()) {
-            case R.id.action_about:
-                Intent intent = new Intent(this, AboutPageActivity.class);
-                startActivity(intent);
-                return true;
-            case R.id.action_filter:
-                Toast.makeText(this, "Filter clicked!",
-                        Toast.LENGTH_LONG).show();
-
-                return true;
-            case R.id.action_view:
-
-                Toast.makeText(this, "View clikced!",
-                        Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-
-        }
-
-        */
 
         return super.onOptionsItemSelected(item);
 

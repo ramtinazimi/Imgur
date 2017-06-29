@@ -48,7 +48,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
 
         /*Glide for loading the photo from the imgur gallery.
-          Glide will chache the image to the memory by default and on top of that looks
+          Glide will cache the image to the memory by default and on top of that looks
           whether an image is not yet in the cache before loading it from the website.
           Latter, will minimize the website requests, thus enhance the application's performance.
         */
