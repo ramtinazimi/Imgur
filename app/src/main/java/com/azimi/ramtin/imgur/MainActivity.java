@@ -67,120 +67,85 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //setting up the layout and the toolbar.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Imgur");
-        toolbar.setTitleTextColor(Color.WHITE);
-
-
-        spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
-        spinnerGallerySelection.setPrompt("Gallery");
-
-
+        //Hiding the toolbar's title.
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         }
+
+        //Setting the spinner on the toolbar.
+        spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
+        spinnerGallerySelection.setPrompt("Gallery");
+
         addItemsToSpinner();
 
     }
 
 
+
+    //*******************************************************************************
+    //********************************CLICK LISTENERS********************************
+    //**********************************START****************************************
+
     //This is the listener for clicking an image.
     @Override
-    public void onItemClick(View view, int position) {
+    public void onImageClick(View view, int position) {
 
         Intent intent = new Intent(this, ImageDetailsActivity.class);
         intent.putExtra("photo_position", position);
         startActivity(intent);
 
-
-        /*
-        LayoutInflater layoutInflater
-                = (LayoutInflater)getBaseContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.popup_window, null);
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-
-        //bigImages
-        //ImageView bigImages = (ImageView)popupWindow.getContentView().findViewById(R.id.bigImages);
-        //Glide.with(this)
-            //    .load("https://i.imgur.com/" + photos.get(position).getId() + ".jpg")
-        //.into(bigImages);
-
-        //Title
-        TextView title = (TextView)popupWindow.getContentView().findViewById(R.id.title);
-        title.setText(photos.get(position).getTitle());
-
-        //description
-        TextView description = (TextView)popupWindow.getContentView().findViewById(R.id.description);
-        description.setText(photos.get(position).getDescription());
-
-        //upvotes
-        TextView upvotes = (TextView)popupWindow.getContentView().findViewById(R.id.upvotes);
-        upvotes.setText("Upvotes: "+photos.get(position).getUpvotes());
-
-
-        //downvotes
-        TextView downvotes = (TextView)popupWindow.getContentView().findViewById(R.id.downvotes);
-        downvotes.setText("Downvotes: "+photos.get(position).getDownvotes());
-
-        //score
-        TextView score = (TextView)popupWindow.getContentView().findViewById(R.id.score);
-        score.setText("Score: "+photos.get(position).getScore());
-
-        Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
-        btnDismiss.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                popupWindow.dismiss();
-            }
-        });
-
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        */
     }
 
+    //Clicklistener for the "about"-button (symbolized by an i at the far right corner.)
     public void clickAbout(View view){
 
         Intent intent = new Intent(this, AboutPageActivity.class);
         startActivity(intent);
     }
 
+    //Click Listener for the changing the layout view.
+    //Options for layout view: 1. GridView 2. Staggered Grid View 3. ListView
     public void clickLayoutChanger(View view){
 
 
         ImageButton buttonLayoutChanger = (ImageButton)findViewById(R.id.buttonLayoutChanger);
         ImageView photo =  (ImageView) findViewById(R.id.photo);
 
-        int width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        int height = 180;
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,height);
+
 
         if(layoutCounter == 0){
+            //GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
-            photo.setLayoutParams(parms);
+            photo.forceLayout();
+            photo.setLayoutParams(new LinearLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,180));
+
             layout = new GridLayoutManager(this, numberOfColumns);
             layoutCounter++;
         }else if(layoutCounter == 1){
+            //STAGGERED GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
-            photo.setLayoutParams(new LinearLayout.LayoutParams(width,
+            photo.forceLayout();
+            photo.setLayoutParams(new LinearLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT));
+
             layout = new StaggeredGridLayoutManager(2,1);
             layoutCounter++;
         }else if(layoutCounter == 2){
+            //LIST LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
-            photo.setLayoutParams(parms);
+            photo.forceLayout();
+            photo.setLayoutParams(new LinearLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.MATCH_PARENT,180));
+
             layout = new LinearLayoutManager(this);
             layoutCounter = 0;
         }
@@ -188,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         rv.setLayoutManager(layout);
     }
 
+    //Click listener for the sort button.
     public void clickSort(View view){
         //Creating the instance of PopupMenu
         ImageButton buttonSort = (ImageButton) findViewById(R.id.buttonSort);
@@ -214,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
-
+    //Click Listener for toggle button.
     public void clickViral(View view){
 
         ToggleButton viralCheckBox = (ToggleButton) findViewById(R.id.viralToggleButton);
@@ -231,8 +197,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
-
-
+    //Click Listener for window button.
     public void clickDate(View view){
         //Creating the instance of PopupMenu
         ImageButton buttonDate = (ImageButton) findViewById(R.id.buttonDate);
@@ -294,6 +259,10 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
+    //*******************************************************************************
+    //********************************CLICK LISTENERS********************************
+    //**********************************END******************************************
+
     private void render(final List<Photo> photos) {
 
         rv = (RecyclerView)findViewById(R.id.rv_of_photos);
@@ -312,11 +281,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     }
 
     private void retrieveImagesfromPage(String gallerySelection){
-        fetchData();
 
 
-
-
+        httpClient = new OkHttpClient.Builder().build();
         //Building the request.
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/gallery/"+gallerySelection)
@@ -385,11 +352,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
     }
 
-    private void fetchData() {
 
-        httpClient = new OkHttpClient.Builder().build();
-
-    }
 
 
 

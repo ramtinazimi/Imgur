@@ -3,15 +3,15 @@
 
 
     <item
-        android:id="@+id/one"
+        android:id="@+id/viral"
         android:title="viral"/>
 
     <item
-        android:id="@+id/two"
+        android:id="@+id/top"
         android:title="top"/>
 
     <item
-        android:id="@+id/three"
+        android:id="@+id/time"
         android:title="time"/>
 
 
