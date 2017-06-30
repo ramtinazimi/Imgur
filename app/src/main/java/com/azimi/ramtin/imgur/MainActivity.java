@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
         spinnerGallerySelection.setPrompt("Gallery");
 
+        retrieveImagesfromPage();
+
         addItemsToSpinner();
 
     }
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         if(layoutCounter == 0){
             //GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
+            retrieveImagesfromPage();
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,180));
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }else if(layoutCounter == 1){
             //STAGGERED GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
+            retrieveImagesfromPage();
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -142,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }else if(layoutCounter == 2){
             //LIST LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
+            retrieveImagesfromPage();
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,180));
@@ -238,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
             @Override
             public void onItemSelected(AdapterView<?> adapter, View v,
                                        int position, long id) {
+
                 // On selecting a spinner item
                 String item = adapter.getItemAtPosition(position).toString();
 
@@ -247,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 
 
-                retrieveImagesfromPage(spinnerGallerySelection.getSelectedItem().toString());
+
             }
 
             @Override
@@ -280,13 +286,13 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
-    private void retrieveImagesfromPage(String gallerySelection){
+    private void retrieveImagesfromPage(){
 
 
         httpClient = new OkHttpClient.Builder().build();
         //Building the request.
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/"+gallerySelection)
+                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
                 .header("Authorization","Client-ID b4cf051f07b40a8")
                 .header("RamtinAzimi","Imgur App")
                 .build();
