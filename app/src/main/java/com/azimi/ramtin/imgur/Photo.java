@@ -30,7 +30,7 @@ public class Photo {
 
     public void setDescription(String description) {
         if(description.trim().equals("null")){
-            this.description = "No description";
+            this.description = "";
         }else{
             this.description = description;
         }

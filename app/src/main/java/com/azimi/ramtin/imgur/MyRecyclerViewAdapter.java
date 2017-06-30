@@ -7,11 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,6 +51,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
           whether an image is not yet in the cache before loading it from the website.
           Latter, will minimize the website requests, thus enhance the application's performance.
         */
+
 
         Glide.with(context)
                 .load("https://i.imgur.com/" + photos.get(position).getId() + ".jpg")

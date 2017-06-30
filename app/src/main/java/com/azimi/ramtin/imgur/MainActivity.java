@@ -51,8 +51,8 @@ Source: http://progur.com/2016/11/create-imgur-client-android.html
 public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
     private OkHttpClient httpClient;
-    private static String TAG = "Ramtin";
-    final List<Photo> photos = new ArrayList<>();
+    private static String TAG = "DEBUG";
+    final static List<Photo> photos = new ArrayList<>();
     MyRecyclerViewAdapter adapter;
 
     private Spinner spinnerGallerySelection;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     private Spinner spinnerGalleryLayout;
     private int layoutCounter = 1;
     RecyclerView rv;
+
 
 
     @Override
@@ -94,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void onItemClick(View view, int position) {
 
         Intent intent = new Intent(this, ImageDetailsActivity.class);
+        intent.putExtra("photo_position", position);
         startActivity(intent);
+
 
         /*
         LayoutInflater layoutInflater
@@ -368,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                         System.out.println("Error");
                     }
 
-                    Log.i(TAG, photo.toString());
+                    //Log.i(TAG, photo.toString());
                     photos.add(photo); // Add photo to list
                 }
 

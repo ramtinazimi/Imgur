@@ -8,48 +8,96 @@
     tools:context="com.azimi.ramtin.imgur.ImageDetailsActivity"
     tools:showIn="@layout/activity_image_details">
 
-    <TextView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/title" />
-    <ImageView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/bigImages"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@+id/title"/>
-    <TextView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/description"
-        android:layout_below="@+id/bigImages"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_alignLeft="@+id/bigImages"/>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    <TextView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/upvotes"
-        android:layout_below="@+id/description"
-        android:layout_alignLeft="@+id/description"/>
-    <TextView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/downvotes"
-        android:layout_below="@+id/description"
-        android:layout_toRightOf="@+id/upvotes"/>
-    <TextView
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/score"
-        android:layout_below="@+id/description"
-        android:layout_toRightOf="@+id/downvotes"/>
-    <Button
-        style="@style/PopUpWindowStyle"
-        android:id="@+id/dismiss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dismiss"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/score"/>
+        <RelativeLayout
+            android:id="@+id/form_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/myColor" >
+
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/title"
+                android:layout_alignLeft="@+id/bigImages" />
+
+            <ImageView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/bigImages"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/title" />
+
+
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/description"
+                android:layout_below="@+id/bigImages"
+                android:layout_alignLeft="@+id/bigImages"/>
+
+            <!--- Details bar below description -->
+
+
+
+            <ImageView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/upvotesPic"
+                android:layout_below="@+id/description"
+                android:layout_width="20dp"
+                android:src="@drawable/ic_upvotes"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_alignLeft="@+id/description"/>
+
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/upvotes"
+                android:layout_below="@+id/description"
+                android:layout_toRightOf="@+id/upvotesPic"
+                android:layout_alignBottom="@+id/upvotesPic"
+                android:gravity="center_vertical" />
+
+            <ImageView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/downvotesPic"
+                android:layout_width="20dp"
+                android:layout_below="@+id/description"
+                android:layout_toRightOf="@+id/upvotes"
+                android:src="@drawable/ic_downvotes"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/downvotes"
+                android:layout_below="@+id/description"
+                android:layout_toRightOf="@+id/downvotesPic"
+                android:gravity="center_vertical"/>
+
+            <ImageView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/scorePic"
+                android:layout_width="20dp"
+                android:layout_below="@+id/description"
+                android:layout_toRightOf="@+id/downvotes"
+                android:src="@drawable/ic_score"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                style="@style/PopUpWindowStyle"
+                android:id="@+id/score"
+                android:layout_below="@+id/description"
+                android:layout_toRightOf="@+id/scorePic"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
