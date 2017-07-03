@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         popupDate.show(); //showing popup menu
     }
 
-    // add items into spinner dynamically
+    // add items into spinner
     public void addItemsToSpinner() {
 
 
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 try{
                     data = new JSONObject(response.body().string());
                     items = data.getJSONArray("data");
-                    Log.i(TAG, items.toString());
+                    //Log.i(TAG, items.toString());
                 }catch(Exception e){
                     System.out.println("Error");
                 }
@@ -343,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                     }catch (Exception e){
                         System.out.println("Error");
                     }
+
 
                     //Log.i(TAG, photo.toString());
                     photos.add(photo); // Add photo to list

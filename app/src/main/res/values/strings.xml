@@ -4,4 +4,9 @@
     <string name="title_activity_about_page">AboutPageActivity</string>
     <string name="spinner_header">Gallery</string>
     <string name="title_activity_image_details">ImageDetailsActivity</string>
+    <string name="app_information">App Information</string>
+    <string name="version">Version: 1.0</string>
+    <string name="dev_time">Development time: 6 days.</string>
+    <string name="dev_infos">Developer</string>
+    <string name="author_name">Author name: rt.azimi@gmail.com</string>
 </resources>

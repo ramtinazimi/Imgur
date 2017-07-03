@@ -13,6 +13,7 @@ public class Photo {
     private String downvotes;
     private String score;
 
+
     public Photo(String id, String title, String description, String upvotes,
                  String downvotes, String score){
         this.id = id;
@@ -72,6 +73,7 @@ public class Photo {
     public String getTitle() {
         return title;
     }
+
 
     public void setTitle(String title) {
         if(title.trim().equals("null")){
