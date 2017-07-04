@@ -2,8 +2,8 @@ package com.azimi.ramtin.imgur;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,29 +13,21 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.util.Log;
 
-import android.view.Gravity;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -58,11 +50,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     private Spinner spinnerGallerySelection;
     int numberOfColumns = 2;
     private RecyclerView.LayoutManager layout;
-    private Spinner spinnerGalleryLayout;
     private int layoutCounter = 1;
     RecyclerView rv;
 
-
+    private static final String galleryHot = "https://api.imgur.com/3/gallery/hot/rising/0.json";
+    private static final String galleryUser = "https://api.imgur.com/3/gallery/user/rising/0.json";
+    private static final String galleryTop = "https://api.imgur.com/3/gallery/top/rising/0.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         spinnerGallerySelection = (Spinner) findViewById(R.id.spinner_nav);
         spinnerGallerySelection.setPrompt("Gallery");
 
-        retrieveImagesfromPage();
+        retrieveImagesfromPage(galleryHot);
 
         addItemsToSpinner();
 
@@ -95,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     //********************************CLICK LISTENERS********************************
     //**********************************START****************************************
 
-    //This is the listener for clicking an image.
+    //Click listener for an image.
     @Override
     public void onImageClick(View view, int position) {
 
@@ -105,14 +98,14 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
-    //Clicklistener for the "about"-button (symbolized by an i at the far right corner.)
+    //Click listener for the "about"-button (symbolized by an i at the far right corner.)
     public void clickAbout(View view){
 
         Intent intent = new Intent(this, AboutPageActivity.class);
         startActivity(intent);
     }
 
-    //Click Listener for the changing the layout view.
+    //Click listener for changing the layout view.
     //Options for layout view: 1. GridView 2. Staggered Grid View 3. ListView
     public void clickLayoutChanger(View view){
 
@@ -125,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         if(layoutCounter == 0){
             //GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
-            retrieveImagesfromPage();
+            retrieveImagesfromPage(galleryHot);
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,180));
@@ -135,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }else if(layoutCounter == 1){
             //STAGGERED GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
-            retrieveImagesfromPage();
+            retrieveImagesfromPage(galleryHot);
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -146,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         }else if(layoutCounter == 2){
             //LIST LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
-            retrieveImagesfromPage();
+            retrieveImagesfromPage(galleryHot);
             photo.forceLayout();
             photo.setLayoutParams(new LinearLayout.LayoutParams(
                     RelativeLayout.LayoutParams.MATCH_PARENT,180));
@@ -226,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         popupDate.show(); //showing popup menu
     }
 
-    // add items into spinner
+    //add items into spinner
     public void addItemsToSpinner() {
 
 
@@ -251,6 +244,15 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 Toast.makeText(getApplicationContext(), "Selected  : " + item,
                         Toast.LENGTH_LONG).show();
 
+
+                //Log.i(TAG, spinnerGallerySelection.getSelectedItem().toString());
+                if(position == 0){
+                    retrieveImagesfromPage(galleryTop);
+                }else if(position == 1){
+                    retrieveImagesfromPage(galleryUser);
+                }else if(position == 2){
+                    retrieveImagesfromPage(galleryTop);
+                }
 
 
 
@@ -286,16 +288,19 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
     }
 
-    private void retrieveImagesfromPage(){
+    private void retrieveImagesfromPage(String gallerySelection){
 
+        String s = "https://api.imgur.com/3/gallery/"+gallerySelection+"/rising/0.json";
+        Log.i(TAG, s);
 
         httpClient = new OkHttpClient.Builder().build();
         //Building the request.
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
+                .url(gallerySelection)
                 .header("Authorization","Client-ID b4cf051f07b40a8")
                 .header("RamtinAzimi","Imgur App")
                 .build();
+
 
 
         //Try to connect
@@ -359,10 +364,6 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         });
     }
 
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -373,17 +374,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-
-        return super.onOptionsItemSelected(item);
-
-    }
 
 
 

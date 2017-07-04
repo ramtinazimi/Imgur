@@ -1,19 +1,13 @@
 package com.azimi.ramtin.imgur;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import static com.azimi.ramtin.imgur.MainActivity.photos;
 
 public class ImageDetailsActivity extends AppCompatActivity {
@@ -55,27 +49,23 @@ public class ImageDetailsActivity extends AppCompatActivity {
                 .load("https://i.imgur.com/" + photos.get(position).getId() + ".jpg")
                 .into(bigimages);
 
-        //description
-        TextView description = (TextView)findViewById(R.id.description);
-        description.setText(photos.get(position).getDescription());
-
-        //upvotes
-        TextView upvotes = (TextView)findViewById(R.id.upvotes);
-        upvotes.setText(photos.get(position).getUpvotes());
-
-
-        //downvotes
-        TextView downvotes = (TextView)findViewById(R.id.downvotes);
-        downvotes.setText(photos.get(position).getDownvotes());
-
-        //score
-        TextView score = (TextView)findViewById(R.id.score);
-        score.setText(photos.get(position).getScore()+ " Scores");
-
+        setTextViewText((TextView) findViewById(R.id.description),
+                photos.get(position).getDescription());
+        setTextViewText((TextView) findViewById(R.id.upvotes),
+                photos.get(position).getUpvotes());
+        setTextViewText((TextView) findViewById(R.id.downvotes),
+                photos.get(position).getDownvotes());
+        setTextViewText((TextView) findViewById(R.id.score),
+                photos.get(position).getScore());
 
 
     }
 
+
+    public void setTextViewText(TextView txtview, String text){
+
+        txtview.setText(text);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
