@@ -9,4 +9,5 @@
     <string name="dev_time">Development time: 6 days.</string>
     <string name="dev_infos">Developer</string>
     <string name="author_name">Author name: rt.azimi@gmail.com</string>
+    <string name="title_activity_hallo">hallo</string>
 </resources>

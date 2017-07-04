@@ -34,6 +34,10 @@
         <activity
             android:name=".ImageDetailsActivity"
             android:label="@string/title_activity_image_details"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".hallo"
+            android:label="@string/title_activity_hallo"
             android:theme="@style/AppTheme"></activity>
     </application>
 
