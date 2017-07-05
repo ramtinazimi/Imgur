@@ -3,7 +3,6 @@ package com.azimi.ramtin.imgur;
 
 import android.content.Intent;
 import android.graphics.Rect;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -118,37 +117,40 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         if(layoutCounter == 0){
             //GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_view);
-            retrieveImagesfromPage(galleryHot);
-            photo.forceLayout();
-            photo.setLayoutParams(new LinearLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,180));
+            //retrieveImagesfromPage(galleryHot);
+            //photo.forceLayout();
+            //photo.setLayoutParams(new LinearLayout.LayoutParams(
+             //       RelativeLayout.LayoutParams.MATCH_PARENT,180));
 
             layout = new GridLayoutManager(this, numberOfColumns);
             layoutCounter++;
         }else if(layoutCounter == 1){
             //STAGGERED GRID LAYOUT
             buttonLayoutChanger.setImageResource(R.drawable.ic_grid_staggered_view);
-            retrieveImagesfromPage(galleryHot);
-            photo.forceLayout();
-            photo.setLayoutParams(new LinearLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+            //retrieveImagesfromPage(galleryHot);
+            //photo.forceLayout();
+            //photo.setLayoutParams(new LinearLayout.LayoutParams(
+            //        RelativeLayout.LayoutParams.MATCH_PARENT,
+            //        RelativeLayout.LayoutParams.WRAP_CONTENT));
 
             layout = new StaggeredGridLayoutManager(2,1);
             layoutCounter++;
         }else if(layoutCounter == 2){
             //LIST LAYOUT
-            buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
-            retrieveImagesfromPage(galleryHot);
-            photo.forceLayout();
-            photo.setLayoutParams(new LinearLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.MATCH_PARENT,180));
+            //buttonLayoutChanger.setImageResource(R.drawable.ic_list_view);
+            //retrieveImagesfromPage(galleryHot);
+            //photo.forceLayout();
+            //photo.setLayoutParams(new LinearLayout.LayoutParams(
+            //        RelativeLayout.LayoutParams.MATCH_PARENT,180));
 
             layout = new LinearLayoutManager(this);
             layoutCounter = 0;
         }
+
         photo.requestLayout();
+
         rv.setLayoutManager(layout);
+
     }
 
     //Click listener for the sort button.
